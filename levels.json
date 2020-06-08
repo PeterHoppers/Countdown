@@ -1,0 +1,39 @@
+{
+	"levels": [{
+			"time": 5,
+			"range": 2
+		},
+		{
+			"time": 7,
+			"range": 1.7
+		},
+        {
+			"time": 8,
+			"range": 1.5
+		},
+        {
+			"time": 11,
+			"range": 1.5
+		},
+        {
+			"time": 4,
+			"range": 0.8
+		},
+        {
+			"time": 12,
+			"range": 1
+		},
+        {
+			"time": 8,
+			"range": 0.9
+		},
+        {
+			"time": 20,
+			"range": 1
+		},
+        {
+			"time": 5,
+			"range": 0.5
+		}               
+	]
+}

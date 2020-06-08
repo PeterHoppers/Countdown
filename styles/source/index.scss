@@ -1,0 +1,63 @@
+@use "sass:color";
+
+@mixin create-large-button()
+{
+    padding: 10px;
+    border-radius: 50%;
+    width: 50%;
+    height: 50%;
+    font-size: 400%;
+}
+@mixin create-button-theme($color)
+{
+    $text-color: grey;
+    $light-color: color.scale($color, $lightness: 10%);
+    $dark-color: color.scale($color, $lightness: -10%);    
+    
+    background-color: $color;
+    
+    @if(lightness($color) > 60)
+    {
+        $text-color: darkslategray;
+    }
+    @else
+    {
+        $text-color: aliceblue;
+    }
+    
+    color: $text-color;
+
+    &:hover {
+        background-color: $light-color;
+    }
+    
+    &:active{
+        background-color: $dark-color;
+    }
+    
+    &:focus{
+        outline: none;
+    }
+}
+
+
+body {
+    background-color: aliceblue;
+    color: rebeccapurple;
+    text-align: center;
+}
+
+button {    
+    &.start
+    {    
+        @include create-large-button();
+        @include create-button-theme(green);
+    }
+    
+    &.stop
+    {
+        @include create-large-button();
+        @include create-button-theme(red);
+    }
+    
+}

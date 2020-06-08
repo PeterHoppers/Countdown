@@ -1,0 +1,14 @@
+{
+    "sass.enabled": false,
+    "path": {
+        "styles/source/index.scss": {
+            "sass.enabled": true,
+            "sass.options": {
+                "outputDir": "../build/",
+                "includePaths": [],
+                "sourceComments": true,
+                "outputStyle": "nested"
+            }
+        }
+    }
+}

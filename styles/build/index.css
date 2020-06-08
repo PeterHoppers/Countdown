@@ -1,0 +1,44 @@
+body {
+  background-color: aliceblue;
+  color: rebeccapurple;
+  text-align: center;
+}
+
+button.start {
+  padding: 10px;
+  border-radius: 50%;
+  width: 50%;
+  height: 50%;
+  font-size: 400%;
+  background-color: green;
+  color: aliceblue;
+}
+button.start:hover {
+  background-color: #00a600;
+}
+button.start:active {
+  background-color: #007300;
+}
+button.start:focus {
+  outline: none;
+}
+button.stop {
+  padding: 10px;
+  border-radius: 50%;
+  width: 50%;
+  height: 50%;
+  font-size: 400%;
+  background-color: red;
+  color: aliceblue;
+}
+button.stop:hover {
+  background-color: #ff1a1a;
+}
+button.stop:active {
+  background-color: #e60000;
+}
+button.stop:focus {
+  outline: none;
+}
+
+/*# sourceMappingURL=index.css.map */
