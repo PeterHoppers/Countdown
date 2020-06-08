@@ -1,5 +1,5 @@
 const jsonFileName = '../levels.json';
-const githubFileName = 'https://raw.githubusercontent.com/PeterHoppers/Countdown/master/.brackets.json';
+const githubFileName = 'https://raw.githubusercontent.com/PeterHoppers/Countdown/master/levels.json';
 
 let isStart = true;
 let stage = 0;
