@@ -1,3 +1,5 @@
+const jsonFileName = '../levels.json';
+
 let isStart = true;
 let stage = 0;
 let countdownValue = 0;
@@ -6,10 +8,26 @@ let json;
 
 function onLoad()
 {
-    loadJSON(function(response) {
-      // Parse JSON string into object
-        json = JSON.parse(response);
-     });
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+    {
+        alert("It's a local server!");
+        loadJSON(function(response) {
+          // Parse JSON string into object
+            json = JSON.parse(response);
+         });
+    }
+    else
+    {
+        fetch(jsonFileName).then(function(resp){
+            return resp.json();
+        })
+        .then(function(data)
+        {
+            console.log(data);
+            json = data;
+        });
+    }
+    
     
     const btn = document.getElementById("mainBtn");
     const lvlInfo = document.getElementById("levelInfo");
