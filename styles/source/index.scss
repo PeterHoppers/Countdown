@@ -19,10 +19,12 @@
     @if(lightness($color) > 60)
     {
         $text-color: darkslategray;
+        text-shadow: 1.5x 1.5px 1.5px aliceblue;
     }
     @else
     {
         $text-color: aliceblue;
+        text-shadow: 1.5px 1.5px 1.5px darkslategray;
     }
     
     color: $text-color;
@@ -43,7 +45,7 @@
 
 body {
     background-color: aliceblue;
-    color: rebeccapurple;
+    color: darkslategray;
     text-align: center;
 }
 
@@ -58,6 +60,14 @@ button {
     {
         @include create-large-button();
         @include create-button-theme(red);
+    }
+    
+    &.restart
+    {
+        @include create-button-theme(orange);
+        padding: 10px;
+        font-size: 200%;
+        border-radius: 25%;
     }
     
 }

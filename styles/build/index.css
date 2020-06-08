@@ -1,6 +1,6 @@
 body {
   background-color: aliceblue;
-  color: rebeccapurple;
+  color: darkslategray;
   text-align: center;
 }
 
@@ -11,6 +11,7 @@ button.start {
   height: 400px;
   font-size: 400%;
   background-color: green;
+  text-shadow: 1.5px 1.5px 1.5px darkslategray;
   color: aliceblue;
 }
 button.start:hover {
@@ -29,6 +30,7 @@ button.stop {
   height: 400px;
   font-size: 400%;
   background-color: red;
+  text-shadow: 1.5px 1.5px 1.5px darkslategray;
   color: aliceblue;
 }
 button.stop:hover {
@@ -38,6 +40,23 @@ button.stop:active {
   background-color: #e60000;
 }
 button.stop:focus {
+  outline: none;
+}
+button.restart {
+  background-color: orange;
+  text-shadow: 1.5px 1.5px 1.5px darkslategray;
+  color: aliceblue;
+  padding: 10px;
+  font-size: 200%;
+  border-radius: 25%;
+}
+button.restart:hover {
+  background-color: #ffae1a;
+}
+button.restart:active {
+  background-color: #e69500;
+}
+button.restart:focus {
   outline: none;
 }
 

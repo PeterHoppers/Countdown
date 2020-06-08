@@ -12,10 +12,11 @@ function onLoad()
     const btn = document.getElementById("mainBtn");
     const lvlInfo = document.getElementById("levelInfo");
     const restart =  document.getElementById("restart");   
+    restart.style["display"] = "none";
     
     const mainDisplay = document.getElementById("levelDisplay");
     const timeToHitUi = document.getElementById("targetTime");
-    const rangeUi = document.getElementById("range");
+    const rangeUi = document.getElementById("range");   
     
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
     {
@@ -42,13 +43,11 @@ function onLoad()
             timeToHitUi.textContent = `Time to Hit: ${getTime()} seconds`;
             rangeUi.textContent = `Range: Within ${getRange()} seconds`;
         });
-    }   
+    }       
     
-    let startTime = new Date().getTime();
-    
+    let startTime;
     let clickingFunction = function()
     {
-        console.log(`In this function ${stage}`);
         if (stage >= 2)
             stage = 0;
         else
@@ -69,15 +68,17 @@ function onLoad()
         {
             modifyButton(btn, "Stop");
             lvlInfo.style["display"] = "none";
+            mainDisplay.textContent = `Click again when the moment is right.`;
             
-            //timer
+            //start the timer
             startTime = new Date().getTime();
         }
         else
         {
             modifyButton(btn, "Finished");
             restart.style["display"] = "inline";
-            lvlInfo.style["display"] = "inline";            
+            lvlInfo.style["display"] = "inline"; 
+            mainDisplay.textContent = `Level ${levelNumber}`;
             
             //timer
             let countdownValue = (new Date().getTime() - startTime) / 1000;
@@ -92,25 +93,23 @@ function onLoad()
             {
                 didWin = true;
                 levelNumber++;
-            }
-                
+            }                
             
-            mainDisplay.textContent = didWin ? "Success!\n" : "Failure!\n";
+            mainDisplay.textContent = didWin ? "Success!" : "Failure!";
             
-            mainDisplay.textContent += `\nYour time was ${countdownValue} seconds.`;    
+            mainDisplay.textContent += ` Your time was ${countdownValue} seconds.`;
             
+            if (levelNumber - 1 === json.levels.length)
+            {
+                mainDisplay.innerHTML += "<div><strong><br>Congrats! You've beaten the game!</strong></div>";
+                restart.textContent = "Want to play again?"
+                restart.onclick = function(){window.location.reload();}; 
+            }   
         }
     }
     
     btn.addEventListener("click", clickingFunction);
-    restart.addEventListener("click", clickingFunction);
-    restart.style["display"] = "none";
-    
-    loadJSON(function(response) {
-      // Parse JSON string into object
-        var actual_JSON = JSON.parse(response);
-        console.log(actual_JSON);
-     });
+    restart.addEventListener("click", clickingFunction);    
 }
 
 function modifyButton(btn, state)
@@ -140,18 +139,12 @@ function setupStartDisplay()
 
 function getTime()
 {
-    if (levelNumber < json.levels.length)
-        return json.levels[levelNumber - 1].time;
-    else
-        return json.levels[json.levels.length - 1].time;
+    return json.levels[levelNumber - 1].time;
 }
 
 function getRange()
 {
-    if (levelNumber < json.levels.length)
-        return json.levels[levelNumber - 1].range;
-    else
-        return json.levels[json.levels.length - 1].range;
+    return json.levels[levelNumber - 1].range;
 }
 
 function loadJSON(callback) {   
