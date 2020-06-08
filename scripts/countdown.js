@@ -9,11 +9,23 @@ let json;
 
 function onLoad()
 {
+    const btn = document.getElementById("mainBtn");
+    const lvlInfo = document.getElementById("levelInfo");
+    const restart =  document.getElementById("restart");   
+    
+    const mainDisplay = document.getElementById("levelDisplay");
+    const timeToHitUi = document.getElementById("targetTime");
+    const rangeUi = document.getElementById("range");
+    
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
     {
         loadJSON(function(response) {
           // Parse JSON string into object
             json = JSON.parse(response);
+            
+            mainDisplay.textContent = `Level ${levelNumber}`;
+            timeToHitUi.textContent = `Time to Hit: ${getTime()} seconds`;
+            rangeUi.textContent = `Range: Within ${getRange()} seconds`;
          });
     }
     else
@@ -25,21 +37,12 @@ function onLoad()
         {
             console.log(data);
             json = data;
+            
+            mainDisplay.textContent = `Level ${levelNumber}`;
+            timeToHitUi.textContent = `Time to Hit: ${getTime()} seconds`;
+            rangeUi.textContent = `Range: Within ${getRange()} seconds`;
         });
-    }
-    
-    
-    const btn = document.getElementById("mainBtn");
-    const lvlInfo = document.getElementById("levelInfo");
-    const restart =  document.getElementById("restart");   
-    
-    const mainDisplay = document.getElementById("levelDisplay");
-    const timeToHitUi = document.getElementById("targetTime");
-    const rangeUi = document.getElementById("range");
-    
-    mainDisplay.textContent = `Level ${levelNumber}`;
-    timeToHitUi.textContent = `Time to Hit: ${getTime()} seconds`;
-    rangeUi.textContent = `Range: Within ${getRange()} seconds`;
+    }   
     
     let startTime = new Date().getTime();
     
@@ -94,8 +97,7 @@ function onLoad()
             
             mainDisplay.textContent = didWin ? "Success!\n" : "Failure!\n";
             
-            mainDisplay.textContent += `\nYour time was ${countdownValue} seconds.`;
-            
+            mainDisplay.textContent += `\nYour time was ${countdownValue} seconds.`;    
             
         }
     }
