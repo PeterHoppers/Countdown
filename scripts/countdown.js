@@ -1,4 +1,5 @@
 const jsonFileName = '../levels.json';
+const githubFileName = 'https://raw.githubusercontent.com/PeterHoppers/Countdown/master/.brackets.json';
 
 let isStart = true;
 let stage = 0;
@@ -10,7 +11,6 @@ function onLoad()
 {
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
     {
-        alert("It's a local server!");
         loadJSON(function(response) {
           // Parse JSON string into object
             json = JSON.parse(response);
@@ -18,7 +18,7 @@ function onLoad()
     }
     else
     {
-        fetch(jsonFileName).then(function(resp){
+        fetch(githubFileName).then(function(resp){
             return resp.json();
         })
         .then(function(data)
