@@ -4,6 +4,22 @@ body {
   text-align: center;
 }
 
+h1 {
+  padding-top: 20px;
+  margin-bottom: -10px;
+  font-size: 3em;
+  font-family: Copperplate, "Franklin Gothic Medium", sans-serif;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  margin-top: -10px;
+  font-family: "Century Gothic", ui-sans-serif, sans-serif;
+}
+
 button.start {
   padding: 10px;
   border-radius: 50%;
@@ -12,10 +28,13 @@ button.start {
   font-size: 400%;
   background-color: green;
   text-shadow: 1.5px 1.5px 1.5px darkslategray;
+  border-color: darkslategray;
   color: aliceblue;
+  text-transform: uppercase;
 }
 button.start:hover {
   background-color: #00a600;
+  cursor: pointer;
 }
 button.start:active {
   background-color: #007300;
@@ -29,15 +48,18 @@ button.stop {
   width: 400px;
   height: 400px;
   font-size: 400%;
-  background-color: red;
+  background-color: firebrick;
   text-shadow: 1.5px 1.5px 1.5px darkslategray;
+  border-color: darkslategray;
   color: aliceblue;
+  text-transform: uppercase;
 }
 button.stop:hover {
-  background-color: #ff1a1a;
+  background-color: #cb2727;
+  cursor: pointer;
 }
 button.stop:active {
-  background-color: #e60000;
+  background-color: #a01f1f;
 }
 button.stop:focus {
   outline: none;
@@ -45,13 +67,16 @@ button.stop:focus {
 button.restart {
   background-color: orange;
   text-shadow: 1.5px 1.5px 1.5px darkslategray;
+  border-color: darkslategray;
   color: aliceblue;
+  display: none;
   padding: 10px;
   font-size: 200%;
   border-radius: 25%;
 }
 button.restart:hover {
   background-color: #ffae1a;
+  cursor: pointer;
 }
 button.restart:active {
   background-color: #e69500;

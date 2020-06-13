@@ -1,9 +1,7 @@
 const jsonFileName = '../levels.json';
 const githubFileName = 'https://raw.githubusercontent.com/PeterHoppers/Countdown/master/levels.json';
 
-let isStart = true;
 let stage = 0;
-let countdownValue = 0;
 let levelNumber = 1;
 let json;
 
@@ -12,11 +10,10 @@ function onLoad()
     const btn = document.getElementById("mainBtn");
     const lvlInfo = document.getElementById("levelInfo");
     const restart =  document.getElementById("restart");   
-    restart.style["display"] = "none";
     
     const mainDisplay = document.getElementById("levelDisplay");
-    const timeToHitUi = document.getElementById("targetTime");
-    const rangeUi = document.getElementById("range");   
+    const goalTimeUI = document.getElementById("targetTime");
+    const rangeUI = document.getElementById("range");   
     
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
     {
@@ -24,9 +21,9 @@ function onLoad()
           // Parse JSON string into object
             json = JSON.parse(response);
             
-            mainDisplay.textContent = `Level ${levelNumber}`;
-            timeToHitUi.textContent = `Time to Hit: ${getTime()} seconds`;
-            rangeUi.textContent = `Range: Within ${getRange()} seconds`;
+            displayLevelNumber(mainDisplay);
+            displayTime(goalTimeUI);
+            displayRange(rangeUI);
          });
     }
     else
@@ -36,12 +33,12 @@ function onLoad()
         })
         .then(function(data)
         {
-            console.log(data);
             json = data;
             
-            mainDisplay.textContent = `Level ${levelNumber}`;
-            timeToHitUi.textContent = `Time to Hit: ${getTime()} seconds`;
-            rangeUi.textContent = `Range: Within ${getRange()} seconds`;
+            displayLevelNumber(mainDisplay);
+            displayTime(goalTimeUI);
+            displayRange(rangeUI);
+            
         });
     }       
     
@@ -56,19 +53,18 @@ function onLoad()
         if (stage === 0)
         {
             modifyButton(btn, "Start");
-            restart.style["display"] = "none";
-            lvlInfo.style["display"] = "inline";    
             
-            mainDisplay.textContent = `Level ${levelNumber}`;
-            timeToHitUi.textContent = `Time to Hit: ${getTime()} seconds`;
-            rangeUi.textContent = `Range: Within ${getRange()} seconds`;
-            
+            displayLevelNumber(mainDisplay);
+            displayTime(goalTimeUI);
+            displayRange(rangeUI);
+            restart.style["display"] = "none";            
         }
         else if (stage === 1)
         {
             modifyButton(btn, "Stop");
-            lvlInfo.style["display"] = "none";
-            mainDisplay.textContent = `Click again when the moment is right.`;
+            
+            lvlInfo.style["visibility"] = "hidden";
+            mainDisplay.textContent = `Click again at the correct time.`;
             
             //start the timer
             startTime = new Date().getTime();
@@ -77,8 +73,8 @@ function onLoad()
         {
             modifyButton(btn, "Finished");
             restart.style["display"] = "inline";
-            lvlInfo.style["display"] = "inline"; 
-            mainDisplay.textContent = `Level ${levelNumber}`;
+            displayLevelNumber(mainDisplay);
+            lvlInfo.style["visibility"] = "visible";
             
             //timer
             let countdownValue = (new Date().getTime() - startTime) / 1000;
@@ -87,17 +83,21 @@ function onLoad()
             
             console.log(`The difference between the two times was ${timeOff}.`);
             
-            let didWin = false;
+            let resultString;
             
             if (timeOff < getRange())
             {
-                didWin = true;
+                resultString = "Success!";
                 levelNumber++;
-            }                
+            }              
+            else
+            {
+                resultString = "Failure!";
+            }
             
-            mainDisplay.textContent = didWin ? "Success!" : "Failure!";
+            mainDisplay.innerHTML = `<span style='font-size:1.5em'>${resultString}</span>`;
             
-            mainDisplay.textContent += ` Your time was ${countdownValue} seconds.`;
+            mainDisplay.innerHTML += `<br> Your time was ${countdownValue} seconds.`;
             
             if (levelNumber - 1 === json.levels.length)
             {
@@ -126,15 +126,19 @@ function modifyButton(btn, state)
     }
 }
 
-function setupStartDisplay()
+function displayLevelNumber(mainDisplay)
 {
-    const mainDisplay = document.getElementById("levelDisplay");
-    const timeToHitUi = document.getElementById("targetTime");
-    const rangeUi = document.getElementById("range");
-    
     mainDisplay.textContent = `Level ${levelNumber}`;
-    timeToHitUi.textContent = `Time to Hit: ${getTime()} seconds`;
-    rangeUi.textContent = `Range: Within ${getRange()} seconds`;
+}
+
+function displayTime(timeUI)
+{    
+   timeUI.innerHTML = `Goal: <span style='text-decoration:underline'>${getTime()}</span> seconds`;
+}
+
+function displayRange(rangeUI)
+{
+    rangeUI.innerHTML = `Success Range: +/- <span style='text-decoration:underline'>${getRange()}</span> seconds`;
 }
 
 function getTime()

@@ -1,5 +1,8 @@
 @use "sass:color";
 
+$lightNeutral: aliceblue;
+$darkNeurtal: darkslategray;
+
 @mixin create-large-button()
 {
     padding: 10px;
@@ -18,19 +21,22 @@
     
     @if(lightness($color) > 60)
     {
-        $text-color: darkslategray;
-        text-shadow: 1.5x 1.5px 1.5px aliceblue;
+        $text-color: $darkNeurtal;
+        text-shadow: 1.5x 1.5px 1.5px $lightNeutral;
+        border-color: $lightNeutral;
     }
     @else
     {
-        $text-color: aliceblue;
-        text-shadow: 1.5px 1.5px 1.5px darkslategray;
+        $text-color: $lightNeutral;
+        text-shadow: 1.5px 1.5px 1.5px $darkNeurtal;
+        border-color: $darkNeurtal;
     }
     
     color: $text-color;
 
     &:hover {
         background-color: $light-color;
+        cursor: pointer;
     }
     
     &:active{
@@ -44,9 +50,25 @@
 
 
 body {
-    background-color: aliceblue;
-    color: darkslategray;
+    background-color: $lightNeutral;
+    color: $darkNeurtal;
     text-align: center;
+}
+
+h1 {
+    padding-top: 20px;
+    margin-bottom: -10px;
+    font-size: 3em;
+    font-family: Copperplate, "Franklin Gothic Medium", sans-serif;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    margin-top: -10px;
+    font-family: "Century Gothic", ui-sans-serif, sans-serif;
 }
 
 button {    
@@ -54,20 +76,24 @@ button {
     {    
         @include create-large-button();
         @include create-button-theme(green);
+        
+        text-transform: uppercase;
     }
     
     &.stop
     {
         @include create-large-button();
-        @include create-button-theme(red);
+        @include create-button-theme(firebrick);
+        
+        text-transform: uppercase;
     }
     
     &.restart
     {
         @include create-button-theme(orange);
+        display: none;
         padding: 10px;
         font-size: 200%;
         border-radius: 25%;
-    }
-    
+    }   
 }
